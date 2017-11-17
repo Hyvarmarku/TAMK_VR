@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace TAMKVR
 {
+    [RequireComponent(typeof(Rigidbody))]
     public abstract class Interactable : MonoBehaviour
     {
         public bool RequireHold
@@ -11,6 +12,7 @@ namespace TAMKVR
             get { return _requireHold; }
         }
 
+        [Tooltip("Does interaction support holding. Example: Ss holding a trigger required to hold an object on your hand or not")]
         [SerializeField] private bool _requireHold = false;
 
         public void InputDownAction(ViveController controller)

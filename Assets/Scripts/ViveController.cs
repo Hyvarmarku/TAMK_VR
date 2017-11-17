@@ -12,8 +12,10 @@ namespace TAMKVR
             get { return _objectInHand; }
         }
 
-        private Interactable _currentTarget;
-        private GameObject _objectInHand;
+        public ViveController OtherController;
+
+        [SerializeField] private Interactable _currentTarget;
+        [SerializeField] private GameObject _objectInHand;
 
         private SteamVR_TrackedObject trackedObj;
         private SteamVR_Controller.Device Controller
@@ -30,7 +32,7 @@ namespace TAMKVR
         {
             if (Controller.GetAxis() != Vector2.zero)
             {
-                Debug.Log(gameObject.name + Controller.GetAxis());
+                //Debug.Log(gameObject.name + Controller.GetAxis());
             }
 
             HandleTriggerInput();
@@ -42,12 +44,12 @@ namespace TAMKVR
         {
             if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
             {
-                Debug.Log(gameObject.name + " Grip Press");
+                //Debug.Log(gameObject.name + " Grip Press");
             }
 
             if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip))
             {
-                Debug.Log(gameObject.name + " Grip Release");
+                //Debug.Log(gameObject.name + " Grip Release");
             }
         }
 
@@ -72,19 +74,23 @@ namespace TAMKVR
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.GetComponent<Interactable>() != null)
+            Debug.Log(other.gameObject);
+            if (other.GetComponent<Interactable>() != null)
             {
                 _currentTarget = other.GetComponent<Interactable>();
-                print("Current Target is: " + _currentTarget);
+               // print("Current Target is: " + _currentTarget);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.GetComponent<Interactable>() != null)
+            if (_objectInHand == null)
             {
-                if (other.GetComponent<Interactable>() == _currentTarget)
-                    print("Current Target: " + _currentTarget + " was removed");
+                Debug.Log("EXIT");
+                if(_currentTarget)
+                    _currentTarget.EndInteractionAction(this);
+
+                _currentTarget = null;
             }
         }
 
@@ -102,6 +108,11 @@ namespace TAMKVR
 
             if (linkWithJoint)
             {
+                if(OtherController.ObjectInHand == go)
+                {
+                    OtherController.ReleaseObject();
+                }
+
                 var joint = AddFixedJoint();
                 joint.connectedBody = _objectInHand.GetComponent<Rigidbody>();
             }
@@ -121,6 +132,7 @@ namespace TAMKVR
             }
 
             _objectInHand = null;
+            _currentTarget = null;
         }
     }
 }

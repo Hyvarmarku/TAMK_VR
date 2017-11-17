@@ -13,7 +13,7 @@ namespace TAMKVR
 
         public override void StartInteractionAction(ViveController controller)
         {
-            controller.SetObjectInHand(this.gameObject, true);
+            controller.SetObjectInHand(gameObject, true);
         }
     }
 }
