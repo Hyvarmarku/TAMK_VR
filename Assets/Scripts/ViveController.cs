@@ -6,7 +6,14 @@ namespace TAMKVR
 {
     public class ViveController : MonoBehaviour
     {
-        private IInteractable _currentTarget;
+        // Object which is in users hand
+        public GameObject ObjectInHand
+        {
+            get { return _objectInHand; }
+        }
+
+        private Interactable _currentTarget;
+        private GameObject _objectInHand;
 
         private SteamVR_TrackedObject trackedObj;
         private SteamVR_Controller.Device Controller
@@ -50,7 +57,7 @@ namespace TAMKVR
             {
                 if (_currentTarget != null)
                 {
-                    _currentTarget.StartInteraction();
+                    _currentTarget.InputDownAction(this);
                 }
             }
 
@@ -58,27 +65,62 @@ namespace TAMKVR
             {
                 if (_currentTarget != null)
                 {
-                    _currentTarget.EndInteraction();
+                    _currentTarget.InputUpAction(this);
                 }
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.GetComponent<IInteractable>() != null)
+            if(other.GetComponent<Interactable>() != null)
             {
-                _currentTarget = other.GetComponent<IInteractable>();
+                _currentTarget = other.GetComponent<Interactable>();
                 print("Current Target is: " + _currentTarget);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.GetComponent<IInteractable>() != null)
+            if (other.GetComponent<Interactable>() != null)
             {
-                if (other.GetComponent<IInteractable>() == _currentTarget)
+                if (other.GetComponent<Interactable>() == _currentTarget)
                     print("Current Target: " + _currentTarget + " was removed");
             }
+        }
+
+        private FixedJoint AddFixedJoint()
+        {
+            FixedJoint fx = gameObject.AddComponent<FixedJoint>();
+            fx.breakForce = 20000;
+            fx.breakTorque = 20000;
+            return fx;
+        }
+
+        public void SetObjectInHand(GameObject go, bool linkWithJoint)
+        {
+            _objectInHand = go;
+
+            if (linkWithJoint)
+            {
+                var joint = AddFixedJoint();
+                joint.connectedBody = _objectInHand.GetComponent<Rigidbody>();
+            }
+        }
+
+        public void ReleaseObject()
+        {
+            var fx = GetComponent<FixedJoint>();
+            if(fx)
+            {
+                GetComponent<FixedJoint>().connectedBody = null;
+                Destroy(fx);
+
+                var objectInHandRigidbody = _objectInHand.GetComponent<Rigidbody>();
+                objectInHandRigidbody.velocity = Controller.velocity;
+                objectInHandRigidbody.angularVelocity = Controller.angularVelocity;
+            }
+
+            _objectInHand = null;
         }
     }
 }
