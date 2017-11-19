@@ -6,6 +6,13 @@ namespace TAMKVR
 {
     public class ViveController : MonoBehaviour
     {
+        public enum InputID
+        {
+            None,
+            Trigger,
+            Pad,
+            Grip
+        }
         // Object which is in users hand
         public GameObject ObjectInHand
         {
@@ -44,12 +51,18 @@ namespace TAMKVR
         {
             if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
             {
-                _currentTarget.InputDownAction(this, Interactable.InputID.Pad);
+                if (_currentTarget != null)
+                {
+                    _currentTarget.InputDownAction(this, InputID.Grip);
+                }
             }
 
             if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip))
             {
-                _currentTarget.InputUpAction(this, Interactable.InputID.Pad);
+                if (_currentTarget != null)
+                {
+                    _currentTarget.InputUpAction(this, InputID.Grip);
+                }
             }
         }
 
@@ -59,7 +72,7 @@ namespace TAMKVR
             {
                 if (_currentTarget != null)
                 {
-                    _currentTarget.InputDownAction(this, Interactable.InputID.Trigger);
+                    _currentTarget.InputDownAction(this, InputID.Trigger);
                 }
             }
 
@@ -67,7 +80,7 @@ namespace TAMKVR
             {
                 if (_currentTarget != null)
                 {
-                    _currentTarget.InputUpAction(this, Interactable.InputID.Trigger);
+                    _currentTarget.InputUpAction(this, InputID.Trigger);
                 }
             }
         }
@@ -77,19 +90,15 @@ namespace TAMKVR
             if (other.GetComponent<Interactable>() != null)
             {
                 _currentTarget = other.GetComponent<Interactable>();
-               // print("Current Target is: " + _currentTarget);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (_objectInHand == null)
-            {
-                if(_currentTarget)
-                    _currentTarget.EndInteractionAction(this, Interactable.InputID.None);
+            if(_currentTarget)
+                _currentTarget.InputUpAction(this, InputID.None);
 
-                _currentTarget = null;
-            }
+            _currentTarget = null;
         }
 
         private FixedJoint AddFixedJoint()
@@ -130,7 +139,7 @@ namespace TAMKVR
             }
 
             _objectInHand = null;
-            _currentTarget = null;
+            //_currentTarget = null;
         }
     }
 }

@@ -1,99 +1,134 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace TAMKVR
 {
     public abstract class Interactable : MonoBehaviour
     {
-        public enum InputID
+        //public bool RequireHold
+        //{
+        //    get { return _requireHold; }
+        //}
+        private List<InputCommand> _inputCommands;
+
+        // Always use this as a base.
+        protected virtual void Awake()
         {
-            None,
-            Trigger,
-            Pad,
-            Grip
+            _inputCommands = GetComponents<InputCommand>().ToList();
+            foreach(var command in _inputCommands)
+            {
+                command.Init(this);
+            }
         }
 
-        public bool RequireHold
+        public void InputDownAction(ViveController controller, ViveController.InputID inputID)
         {
-            get { return _requireHold; }
-        }
-
-        [Tooltip("Does interaction support holding. Example: Ss holding a trigger required to hold an object on your hand or not")]
-        [SerializeField] private bool _requireHold = false;
-
-        public void InputDownAction(ViveController controller, InputID inputID)
-        {
+            InputCommand command = _inputCommands.FirstOrDefault(a => a.InputID == inputID);
+            if(command == null)
+            {
+                Debug.Log("Command: " + inputID + " has not been set for " + gameObject);
+                return;
+            }
             // Does action trigger by toggling? 
-            if(!RequireHold)
+            if(!command.RequireHold)
             {
                 // Object is already in hand, so this is the second toggle action.
                 if(controller.ObjectInHand == this.gameObject)
                 {
-                    EndInteractionAction(controller, inputID);
+                    command.EndAction(controller);
                 }
                 // This is the first time interacting with this object.
                 else
                 {
-                    StartInteractionAction(controller, inputID);
+                    command.StartAction(controller);
                 }
             }
             else
             {
-                StartInteractionAction(controller, inputID);
+                command.StartAction(controller);
             }
         }
 
-        public void InputUpAction(ViveController controller, InputID inputID)
+        public void InputUpAction(ViveController controller, ViveController.InputID inputID)
         {
+
+            if(inputID == ViveController.InputID.None)
+            {
+                CancelAllActions(controller);
+                return;
+            }
+
+            InputCommand command = _inputCommands.FirstOrDefault(a => a.InputID == inputID);
+            if (command == null)
+            {
+                return;
+            }
+
             // Does action trigger by toggling? If does, ignore this action call.
-            if(!RequireHold)
+            if (!command.RequireHold)
             {
                 return;
             }
             else
             {
-                EndInteractionAction(controller,inputID);
+                command.EndAction(controller);
             }
         }
 
-        public void StartInteractionAction(ViveController controller, InputID inputID)
+#region CommandAction Delegate Getters
+        public InputCommand.CommandAction GetStartAction(ViveController.InputID inputId)
         {
-            switch(inputID)
+            InputCommand.CommandAction action = null;
+            switch(inputId)
             {
-                case InputID.None:
-                    return;
-                case InputID.Trigger:
-                    StartTriggerAction(controller);
+                case ViveController.InputID.Trigger:
+                    action = StartTriggerAction;
                     break;
-                case InputID.Pad:
-                    StartTriggerAction(controller);
+                case ViveController.InputID.Pad:
+                    action = StartPadAction;
+                    break;
+                case ViveController.InputID.Grip:
+                    //action = StartGripAction;
                     break;
             }
+
+            return action;
+        }
+#endregion
+
+        public InputCommand.CommandAction GetEndAction(ViveController.InputID inputId)
+        {
+            InputCommand.CommandAction action = null;
+            switch (inputId)
+            {
+                case ViveController.InputID.Trigger:
+                    action = EndTriggerAction;
+                    break;
+                case ViveController.InputID.Pad:
+                    action = EndPadAction;
+                    break;
+                case ViveController.InputID.Grip:
+                    //action = StartGripAction;
+                    break;
+            }
+
+            return action;
         }
 
-        public void EndInteractionAction(ViveController controller, InputID inputID)
+        private void CancelAllActions(ViveController controller)
         {
-            switch (inputID)
+            foreach(var command in _inputCommands)
             {
-                // Add every input action cancellor to this.
-                case InputID.None:
-                    EndTriggerAction(controller);
-                    EndPadAction(controller);
-                    break;
-                case InputID.Trigger:
-                    EndTriggerAction(controller);
-                    break;
-                case InputID.Pad:
-                    EndPadAction(controller);
-                    break;
+                command.EndAction(controller);
             }
         }
 
         protected abstract void StartTriggerAction(ViveController controller);
         protected abstract void EndTriggerAction(ViveController controller);
 
-        protected abstract void StartPadrAction(ViveController controller);
+        protected abstract void StartPadAction(ViveController controller);
         protected abstract void EndPadAction(ViveController controller);
     }
 }

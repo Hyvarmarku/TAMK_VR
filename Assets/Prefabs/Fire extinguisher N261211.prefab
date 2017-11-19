@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 23703022759169104}
   - component: {fileID: 65324980608543520}
   - component: {fileID: 114071535691464272}
+  - component: {fileID: 114442270374419508}
   m_Layer: 0
   m_Name: sub01
   m_TagString: Untagged
@@ -124,6 +125,7 @@ GameObject:
   - component: {fileID: 54671403474731770}
   - component: {fileID: 65996536722562662}
   - component: {fileID: 114760101557172922}
+  - component: {fileID: 114032292000167056}
   m_Layer: 0
   m_Name: Fire extinguisher N261211
   m_TagString: Untagged
@@ -460,8 +462,21 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 142.885, y: 400.7437, z: 142.885}
-  m_Center: {x: 0, y: -77, z: 0}
+  m_Size: {x: 142.885, y: 362.19, z: 142.885}
+  m_Center: {x: -21.7, y: -62.71, z: 0}
+--- !u!114 &114032292000167056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1884341414971754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da329d2a5c1883847875a56e3164c0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputId: 1
+  _requireHold: 0
 --- !u!114 &114071535691464272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -473,9 +488,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f840b8eb21528479387159266353e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _requireHold: 1
   _fireExtinguisherCore: {fileID: 114760101557172922}
   _particles: {fileID: 1338786588606866}
+--- !u!114 &114442270374419508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1566009462218784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da329d2a5c1883847875a56e3164c0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputId: 1
+  _requireHold: 0
 --- !u!114 &114760101557172922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -487,7 +514,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684525e6185d1c046adb1f1ac0b5def5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _requireHold: 0
 --- !u!198 &198469249826736516
 ParticleSystem:
   m_ObjectHideFlags: 1

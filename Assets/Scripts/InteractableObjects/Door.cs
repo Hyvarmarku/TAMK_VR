@@ -17,7 +17,7 @@ namespace TAMKVR
             throw new System.NotImplementedException();
         }
 
-        protected override void StartPadrAction(ViveController controller)
+        protected override void StartPadAction(ViveController controller)
         {
             throw new System.NotImplementedException();
         }

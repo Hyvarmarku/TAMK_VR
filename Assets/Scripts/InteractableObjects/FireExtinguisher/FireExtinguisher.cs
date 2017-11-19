@@ -11,7 +11,7 @@ namespace TAMKVR
 
         }
 
-        protected override void StartPadrAction(ViveController controller)
+        protected override void StartPadAction(ViveController controller)
         {
 
         }

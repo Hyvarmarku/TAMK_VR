@@ -17,11 +17,12 @@ namespace TAMKVR {
         {
             if (controller.OtherController.ObjectInHand == _fireExtinguisherCore.gameObject)
             {
+                controller.ReleaseObject();
                 _particles.SetActive(false);
             }
         }
 
-        protected override void StartPadrAction(ViveController controller)
+        protected override void StartPadAction(ViveController controller)
         {
             
         }
@@ -31,7 +32,7 @@ namespace TAMKVR {
             if (controller.OtherController.ObjectInHand == _fireExtinguisherCore.gameObject)
             {
                 //controller.OtherController.ReleaseObject();
-                //controller.SetObjectInHand(_fireExtinguisherCore.gameObject, true);
+                controller.SetObjectInHand(gameObject, false);
                 _particles.SetActive(true);
             }
         }
