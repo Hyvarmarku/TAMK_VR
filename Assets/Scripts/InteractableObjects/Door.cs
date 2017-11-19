@@ -6,16 +6,25 @@ namespace TAMKVR
 {
     public class Door : Interactable
     {
-        public override void EndInteractionAction(ViveController controller)
+
+        protected override void EndPadAction(ViveController controller)
         {
-            print("INTERACTION ENDED");
-            controller.ReleaseObject();
+            throw new System.NotImplementedException();
         }
 
-        public override void StartInteractionAction(ViveController controller)
+        protected override void EndTriggerAction(ViveController controller)
         {
-            print("DOOR WAS OPENED");
-            controller.SetObjectInHand(this.gameObject, false);
+            throw new System.NotImplementedException();
+        }
+
+        protected override void StartPadrAction(ViveController controller)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void StartTriggerAction(ViveController controller)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -8,7 +8,12 @@ namespace TAMKVR {
         [SerializeField] private FireExtinguisher _fireExtinguisherCore;
         [SerializeField] private GameObject _particles;
 
-        public override void EndInteractionAction(ViveController controller)
+        protected override void EndPadAction(ViveController controller)
+        {
+
+        }
+
+        protected override void EndTriggerAction(ViveController controller)
         {
             if (controller.OtherController.ObjectInHand == _fireExtinguisherCore.gameObject)
             {
@@ -16,7 +21,12 @@ namespace TAMKVR {
             }
         }
 
-        public override void StartInteractionAction(ViveController controller)
+        protected override void StartPadrAction(ViveController controller)
+        {
+            
+        }
+
+        protected override void StartTriggerAction(ViveController controller)
         {
             if (controller.OtherController.ObjectInHand == _fireExtinguisherCore.gameObject)
             {
@@ -25,6 +35,5 @@ namespace TAMKVR {
                 _particles.SetActive(true);
             }
         }
-
     }
 }

@@ -44,12 +44,12 @@ namespace TAMKVR
         {
             if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
             {
-                //Debug.Log(gameObject.name + " Grip Press");
+                _currentTarget.InputDownAction(this, Interactable.InputID.Pad);
             }
 
             if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip))
             {
-                //Debug.Log(gameObject.name + " Grip Release");
+                _currentTarget.InputUpAction(this, Interactable.InputID.Pad);
             }
         }
 
@@ -59,7 +59,7 @@ namespace TAMKVR
             {
                 if (_currentTarget != null)
                 {
-                    _currentTarget.InputDownAction(this);
+                    _currentTarget.InputDownAction(this, Interactable.InputID.Trigger);
                 }
             }
 
@@ -67,14 +67,13 @@ namespace TAMKVR
             {
                 if (_currentTarget != null)
                 {
-                    _currentTarget.InputUpAction(this);
+                    _currentTarget.InputUpAction(this, Interactable.InputID.Trigger);
                 }
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.gameObject);
             if (other.GetComponent<Interactable>() != null)
             {
                 _currentTarget = other.GetComponent<Interactable>();
@@ -86,9 +85,8 @@ namespace TAMKVR
         {
             if (_objectInHand == null)
             {
-                Debug.Log("EXIT");
                 if(_currentTarget)
-                    _currentTarget.EndInteractionAction(this);
+                    _currentTarget.EndInteractionAction(this, Interactable.InputID.None);
 
                 _currentTarget = null;
             }

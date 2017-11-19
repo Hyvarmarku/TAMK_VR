@@ -6,14 +6,25 @@ namespace TAMKVR
 {
     public class FireExtinguisher : Interactable
     {
-        public override void EndInteractionAction(ViveController controller)
+        protected override void EndPadAction(ViveController controller)
+        {
+
+        }
+
+        protected override void StartPadrAction(ViveController controller)
+        {
+
+        }
+
+        protected override void StartTriggerAction(ViveController controller)
+        {
+            controller.SetObjectInHand(gameObject, true);
+        }
+
+        protected override void EndTriggerAction(ViveController controller)
         {
             controller.ReleaseObject();
         }
 
-        public override void StartInteractionAction(ViveController controller)
-        {
-            controller.SetObjectInHand(gameObject, true);
-        }
     }
 }

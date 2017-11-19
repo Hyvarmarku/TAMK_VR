@@ -72,6 +72,8 @@ GameObject:
   - component: {fileID: 4365078674842058}
   - component: {fileID: 33013575606676658}
   - component: {fileID: 23703022759169104}
+  - component: {fileID: 65324980608543520}
+  - component: {fileID: 114071535691464272}
   m_Layer: 0
   m_Name: sub01
   m_TagString: Untagged
@@ -87,9 +89,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4774578758481374}
-  - component: {fileID: 54888850239966946}
-  - component: {fileID: 65104087859562924}
-  - component: {fileID: 114622872168400748}
   m_Layer: 0
   m_Name: Fire_extin
   m_TagString: Untagged
@@ -439,33 +438,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!54 &54888850239966946
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1574724659584288}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 1
---- !u!65 &65104087859562924
+--- !u!65 &65324980608543520
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1574724659584288}
+  m_GameObject: {fileID: 1566009462218784}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 115.5792, y: 72.87811, z: 88.963524}
-  m_Center: {x: -60.389797, y: -11.475474, z: -441.64453}
+  m_Center: {x: -60.389797, y: -11.475474, z: -441.6443}
 --- !u!65 &65996536722562662
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -478,18 +462,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 142.885, y: 400.7437, z: 142.885}
   m_Center: {x: 0, y: -77, z: 0}
---- !u!114 &114622872168400748
+--- !u!114 &114071535691464272
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1574724659584288}
+  m_GameObject: {fileID: 1566009462218784}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67f840b8eb21528479387159266353e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _requireHold: 0
+  _requireHold: 1
   _fireExtinguisherCore: {fileID: 114760101557172922}
   _particles: {fileID: 1338786588606866}
 --- !u!114 &114760101557172922
@@ -3881,7 +3865,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1189382674
+  randomSeed: -667189644
   InitialModule:
     serializedVersion: 3
     enabled: 1
