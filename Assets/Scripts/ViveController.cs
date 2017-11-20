@@ -20,6 +20,7 @@ namespace TAMKVR
         }
 
         public ViveController OtherController;
+        public LaserPointer LaserPointer;
 
         [SerializeField] private Interactable _currentTarget;
         [SerializeField] private GameObject _objectInHand;
@@ -37,9 +38,16 @@ namespace TAMKVR
 
         private void Update()
         {
-            if (Controller.GetAxis() != Vector2.zero)
+            if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
             {
-                //Debug.Log(gameObject.name + Controller.GetAxis());
+                if(LaserPointer)
+                    LaserPointer.InputDownAction(this);
+            }
+
+            if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
+            {
+                if (LaserPointer)
+                    LaserPointer.InputUpAction(this);
             }
 
             HandleTriggerInput();

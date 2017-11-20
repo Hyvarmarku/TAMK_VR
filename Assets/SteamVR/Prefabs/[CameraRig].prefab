@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114418819590773252}
   - component: {fileID: 54718872137830222}
   - component: {fileID: 135029372347641136}
+  - component: {fileID: 114698085773080264}
   m_Layer: 0
   m_Name: Controller (left)
   m_TagString: Untagged
@@ -101,6 +102,7 @@ GameObject:
   - component: {fileID: 114209640048578752}
   - component: {fileID: 54825453628296882}
   - component: {fileID: 135227914546953502}
+  - component: {fileID: 114778332596767544}
   m_Layer: 0
   m_Name: Controller (right)
   m_TagString: Untagged
@@ -578,6 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OtherController: {fileID: 114418819590773252}
+  LaserPointer: {fileID: 0}
   _currentTarget: {fileID: 0}
   _objectInHand: {fileID: 0}
 --- !u!114 &114418819590773252
@@ -592,8 +595,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OtherController: {fileID: 114209640048578752}
+  LaserPointer: {fileID: 0}
   _currentTarget: {fileID: 0}
   _objectInHand: {fileID: 0}
+--- !u!114 &114698085773080264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb99fafbf0fb15746a1583a8b9d09b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _laserPrefab: {fileID: 1199716773419518, guid: 2ae692f9cd0810a4a9575b9e8226eeea,
+    type: 2}
+--- !u!114 &114778332596767544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb99fafbf0fb15746a1583a8b9d09b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _laserPrefab: {fileID: 1199716773419518, guid: 2ae692f9cd0810a4a9575b9e8226eeea,
+    type: 2}
 --- !u!135 &135029372347641136
 SphereCollider:
   m_ObjectHideFlags: 1

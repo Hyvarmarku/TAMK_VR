@@ -7,10 +7,6 @@ namespace TAMKVR
 {
     public abstract class Interactable : MonoBehaviour
     {
-        //public bool RequireHold
-        //{
-        //    get { return _requireHold; }
-        //}
         private List<InputCommand> _inputCommands;
 
         // Always use this as a base.
@@ -96,7 +92,6 @@ namespace TAMKVR
 
             return action;
         }
-#endregion
 
         public InputCommand.CommandAction GetEndAction(ViveController.InputID inputId)
         {
@@ -116,6 +111,7 @@ namespace TAMKVR
 
             return action;
         }
+#endregion
 
         private void CancelAllActions(ViveController controller)
         {
