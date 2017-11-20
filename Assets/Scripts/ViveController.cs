@@ -38,7 +38,7 @@ namespace TAMKVR
 
         private void Update()
         {
-            if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
+            if (Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
             {
                 if(LaserPointer)
                     LaserPointer.InputDownAction(this);
