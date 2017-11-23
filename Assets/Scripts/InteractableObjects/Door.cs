@@ -9,22 +9,22 @@ namespace TAMKVR
 
         protected override void EndPadAction(ViveController controller)
         {
-            throw new System.NotImplementedException();
+           // throw new System.NotImplementedException();
         }
 
         protected override void EndTriggerAction(ViveController controller)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
         protected override void StartPadAction(ViveController controller)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
         protected override void StartTriggerAction(ViveController controller)
         {
-            throw new System.NotImplementedException();
+            FindObjectOfType<ExitPathManager>().RequestSpawn();
         }
     }
 }
