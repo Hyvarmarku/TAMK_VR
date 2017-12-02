@@ -18,12 +18,12 @@ namespace TAMKVR
 
         protected override void StartTriggerAction(ViveController controller)
         {
-            controller.SetObjectInHand(gameObject, true);
+            //controller.SetObjectInHand(gameObject, true);
         }
 
         protected override void EndTriggerAction(ViveController controller)
         {
-            controller.ReleaseObject();
+            //controller.ReleaseObject();
         }
 
     }

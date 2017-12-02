@@ -40,14 +40,22 @@ namespace TAMKVR
         {
             if (Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
             {
-                if(LaserPointer)
+                if(!ObjectInHand && LaserPointer)
                     LaserPointer.InputDownAction(this);
+                else if (_currentTarget)
+                {
+                    _currentTarget.InputDownAction(this, InputID.Pad);
+                }
             }
 
             if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
             {
-                if (LaserPointer)
+                if (!ObjectInHand && LaserPointer)
                     LaserPointer.InputUpAction(this);
+                else if (_currentTarget)
+                {
+                    _currentTarget.InputUpAction(this, InputID.Pad);
+                }
             }
 
             HandleTriggerInput();
@@ -129,7 +137,7 @@ namespace TAMKVR
                 }
 
                 var joint = AddFixedJoint();
-                joint.connectedBody = _objectInHand.GetComponent<Rigidbody>();
+                joint.connectedBody = _objectInHand.GetComponentInParent<Rigidbody>();
             }
         }
 
@@ -141,7 +149,7 @@ namespace TAMKVR
                 GetComponent<FixedJoint>().connectedBody = null;
                 Destroy(fx);
 
-                var objectInHandRigidbody = _objectInHand.GetComponent<Rigidbody>();
+                var objectInHandRigidbody = _objectInHand.GetComponentInParent<Rigidbody>();
                 objectInHandRigidbody.velocity = Controller.velocity;
                 objectInHandRigidbody.angularVelocity = Controller.angularVelocity;
             }

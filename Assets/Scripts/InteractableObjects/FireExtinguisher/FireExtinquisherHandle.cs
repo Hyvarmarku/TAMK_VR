@@ -10,31 +10,38 @@ namespace TAMKVR {
 
         protected override void EndPadAction(ViveController controller)
         {
-
+            _particles.SetActive(false);
         }
 
         protected override void EndTriggerAction(ViveController controller)
         {
-            if (controller.OtherController.ObjectInHand == _fireExtinguisherCore.gameObject)
-            {
-                controller.ReleaseObject();
-                _particles.SetActive(false);
-            }
+            //if (controller.OtherController.ObjectInHand == _fireExtinguisherCore.gameObject)
+            //{
+            //    controller.ReleaseObject();
+            //    _particles.SetActive(false);
+            //}
+            controller.ReleaseObject();
+            _particles.SetActive(false);
         }
 
         protected override void StartPadAction(ViveController controller)
         {
-            
+            _particles.SetActive(true);
         }
 
         protected override void StartTriggerAction(ViveController controller)
         {
-            if (controller.OtherController.ObjectInHand == _fireExtinguisherCore.gameObject)
+            //if (controller.OtherController.ObjectInHand == _fireExtinguisherCore.gameObject)
+            //{
+            //    //controller.OtherController.ReleaseObject();
+            //    controller.SetObjectInHand(gameObject, false);
+            //    _particles.SetActive(true);
+            //}
+            if (controller.ObjectInHand != gameObject)
             {
-                //controller.OtherController.ReleaseObject();
-                controller.SetObjectInHand(gameObject, false);
-                _particles.SetActive(true);
+                controller.SetObjectInHand(gameObject, true);
             }
+            
         }
     }
 }
