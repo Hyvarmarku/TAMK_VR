@@ -5,6 +5,7 @@ using UnityEngine;
 namespace TAMKVR {
     public class FireExtinquisherHandle : Interactable
     {
+        [SerializeField] private LayerMask _layerMask;
         [SerializeField] private FireExtinguisher _fireExtinguisherCore;
         [SerializeField] private GameObject _particles;
 
@@ -40,8 +41,18 @@ namespace TAMKVR {
             if (controller.ObjectInHand != gameObject)
             {
                 controller.SetObjectInHand(gameObject, true);
-            }
-            
+            }            
+        }
+
+        private void Update()
+        {
+            GameObject target = RaycasterTool.CheckCollision(transform.position, transform.forward, 1, _layerMask);
+
+            if (target)
+            {
+                var fire = target.GetComponent<Fire>();
+
+            } 
         }
     }
 }
