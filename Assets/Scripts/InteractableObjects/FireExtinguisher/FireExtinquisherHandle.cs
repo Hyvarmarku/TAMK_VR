@@ -6,12 +6,16 @@ namespace TAMKVR {
     public class FireExtinquisherHandle : Interactable
     {
         [SerializeField] private LayerMask _layerMask;
-        [SerializeField] private FireExtinguisher _fireExtinguisherCore;
-        [SerializeField] private GameObject _particles;
+        [SerializeField] private FireExtinquisherHose _fireExtinguisherHose;
+        [SerializeField] private PowderParticles _particles;
+        [SerializeField] private float _rangeOfPowder;
 
+        private bool _isFiring = false;
+        private float _currentRange = 0;
         protected override void EndPadAction(ViveController controller)
         {
-            _particles.SetActive(false);
+            _particles.StopParticles();
+            _currentRange = 0;
         }
 
         protected override void EndTriggerAction(ViveController controller)
@@ -22,12 +26,14 @@ namespace TAMKVR {
             //    _particles.SetActive(false);
             //}
             controller.ReleaseObject();
-            _particles.SetActive(false);
+            //_particles.SetActive(false);
+            _isFiring = false;
         }
 
         protected override void StartPadAction(ViveController controller)
         {
-            _particles.SetActive(true);
+            _particles.StartParticles();
+            _isFiring = true;
         }
 
         protected override void StartTriggerAction(ViveController controller)
@@ -46,13 +52,33 @@ namespace TAMKVR {
 
         private void Update()
         {
-            GameObject target = RaycasterTool.CheckCollision(transform.position, transform.forward, 1, _layerMask);
-
-            if (target)
+            if(Input.GetKeyDown(KeyCode.K))
             {
-                var fire = target.GetComponent<Fire>();
+                _isFiring = true;
+                _particles.StartParticles();
+            }
+            if (Input.GetKeyUp(KeyCode.K))
+            {
+                _isFiring = false;
+                _particles.StopParticles();
+                _currentRange = 0;
+            }
 
-            } 
+            if (_isFiring)
+            {
+                _currentRange += 15 * Time.deltaTime;
+                if(_currentRange > _rangeOfPowder)
+                {
+                    _currentRange = _rangeOfPowder;
+                }
+
+                GameObject target = RaycasterTool.CheckCollision(_fireExtinguisherHose.transform.position, _fireExtinguisherHose.transform.forward, _currentRange, _layerMask);
+                if (target)
+                {
+                    var fire = target.GetComponent<Fire>();
+                    fire.Shrink = true;
+                }
+            }
         }
     }
 }

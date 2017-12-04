@@ -12,10 +12,9 @@ public static class RaycasterTool
         RaycastHit hit;
         
         if (Physics.Raycast(startingPosition, direction, out hit, rayLength, layer)) {
-            Debug.Log(hit);
-            //hit.transform.gameObject.SetActive(false);
+            result = hit.transform.gameObject;
         }
-        Debug.DrawRay(startingPosition, direction, Color.red);
+        Debug.DrawRay(startingPosition, direction * rayLength, Color.red);
 
         return result;
     }
