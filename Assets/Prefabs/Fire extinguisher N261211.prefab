@@ -127,6 +127,9 @@ GameObject:
   - component: {fileID: 4057772332834142}
   - component: {fileID: 33004085359973806}
   - component: {fileID: 23714048627926540}
+  - component: {fileID: 114521300821314948}
+  - component: {fileID: 114565809373570604}
+  - component: {fileID: 114314673345001164}
   m_Layer: 0
   m_Name: Object02
   m_TagString: Untagged
@@ -144,6 +147,8 @@ GameObject:
   - component: {fileID: 4821800167280012}
   - component: {fileID: 54671403474731770}
   - component: {fileID: 65996536722562662}
+  - component: {fileID: 114545439170058594}
+  - component: {fileID: 114799112143661290}
   m_Layer: 0
   m_Name: Fire extinguisher N261211
   m_TagString: Untagged
@@ -252,9 +257,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1884341414971754}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.43, y: 6.87, z: 18.51}
-  m_LocalScale: {x: 0.0015, y: 0.0015, z: 0.0015}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 222, y: 85, z: 59}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4774578758481374}
   - {fileID: 4698254080583728}
@@ -310,7 +315,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 91468fc09788ae242840793726bbc555, type: 2}
+  - {fileID: 2100000, guid: e98151ff8faa7434a91a92f83f7fcbd0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -505,6 +510,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4477248d522936f4dad949a2af12c25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114314673345001164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702706620124020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684525e6185d1c046adb1f1ac0b5def5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114442270374419508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -518,6 +534,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputId: 1
   _requireHold: 0
+--- !u!114 &114521300821314948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702706620124020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684525e6185d1c046adb1f1ac0b5def5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114538136924710304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -531,6 +558,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputId: 2
   _requireHold: 1
+--- !u!114 &114545439170058594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1884341414971754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684525e6185d1c046adb1f1ac0b5def5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114565809373570604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702706620124020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684525e6185d1c046adb1f1ac0b5def5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114603407296071268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -555,6 +604,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputId: 1
   _requireHold: 1
+--- !u!114 &114799112143661290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1884341414971754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61488e8e8dcabcf48a42c5ab010af874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 23714048627926540}
 --- !u!198 &198793593664913088
 ParticleSystem:
   m_ObjectHideFlags: 1

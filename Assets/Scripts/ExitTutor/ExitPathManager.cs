@@ -8,15 +8,32 @@ namespace TAMKVR
     {
 
         public Transform Player;
+        public Navigation Navigation;
         public List<Transform> SpawnPoints = new List<Transform>();
-        public List<PathMover> Paths = new List<PathMover>();
         public List<FireExtinguisher> Extinguishers = new List<FireExtinguisher>();
+        public List<Door> ExitDoors = new List<Door>();
+        //public List<PathMover> Paths = new List<PathMover>();
 
         private int _currentPath = 0;
+        private Door _prevDestination;
 
         void Start()
         {
             RequestSpawn();
+        }
+
+        // DEBUG
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.N))
+            {
+                SetDestination();
+                _currentPath++;
+                if(_currentPath >= ExitDoors.Count)
+                {
+                    _currentPath = 0;
+                }
+            }
         }
 
         public void RequestSpawn()
@@ -38,12 +55,23 @@ namespace TAMKVR
         private void SpawnPlayer()
         {
             Player.position = SpawnPoints[_currentPath].position;
-            Paths[_currentPath].gameObject.SetActive(true);
+            SetDestination();
+        }
 
-            if (_currentPath > 0)
+        private void SetDestination()
+        {
+            if (_prevDestination != null)
             {
-                Paths[_currentPath - 1].gameObject.SetActive(false);
+                _prevDestination.SetHighlightActive(false);
+                Extinguishers[ExitDoors.IndexOf(_prevDestination)].GetComponent<Highlighable>().SetHighlightActive(false);
             }
+
+            Door destination = ExitDoors[_currentPath];
+            Navigation.SetDestination(destination.transform.position);
+            destination.SetHighlightActive(true);
+            Extinguishers[_currentPath].GetComponent<Highlighable>().SetHighlightActive(true);
+
+            _prevDestination = destination;
         }
     }
 }
