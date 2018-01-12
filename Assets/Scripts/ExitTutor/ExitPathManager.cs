@@ -63,13 +63,17 @@ namespace TAMKVR
             if (_prevDestination != null)
             {
                 _prevDestination.SetHighlightActive(false);
-                Extinguishers[ExitDoors.IndexOf(_prevDestination)].GetComponent<Highlighable>().SetHighlightActive(false);
+            }
+
+            if(_prevDestination != null && Extinguishers.Count > _currentPath)
+            {
+                Extinguishers[_currentPath -1].GetComponent<Highlighable>().SetHighlightActive(false);
+                Extinguishers[_currentPath].GetComponent<Highlighable>().SetHighlightActive(true);
             }
 
             Door destination = ExitDoors[_currentPath];
             Navigation.SetDestination(destination.transform.position);
             destination.SetHighlightActive(true);
-            Extinguishers[_currentPath].GetComponent<Highlighable>().SetHighlightActive(true);
 
             _prevDestination = destination;
         }
