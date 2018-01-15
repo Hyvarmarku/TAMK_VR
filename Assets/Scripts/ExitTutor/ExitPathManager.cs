@@ -31,7 +31,6 @@ namespace TAMKVR
             if (Input.GetKeyDown(KeyCode.N))
             {
                 SetDestination();
-                //_currentPath++;
                 if (_currentPath >= ExitDoors.Count)
                 {
                     _currentPath = 0;
@@ -63,14 +62,19 @@ namespace TAMKVR
 
         public void SetDestination()
         {
-            Debug.Log("SET DESTINATION");
-
             if (_prevDestination != null)
             {
                 _prevDestination.SetHighlightActive(false);
             }
 
-            if(_prevDestination != null && Extinguishers.Count > _currentPath)
+            if(_currentPath >= ExitDoors.Count)
+            {
+                Debug.Log("CLEARED");
+                Cleared();
+                return;
+            }
+
+            if(_prevDestination != null && _currentPath != 0 && Extinguishers.Count > _currentPath)
             {
                 Extinguishers[_currentPath -1].GetComponent<Highlighable>().SetHighlightActive(false);
                 Extinguishers[_currentPath].GetComponent<Highlighable>().SetHighlightActive(true);
@@ -83,7 +87,6 @@ namespace TAMKVR
 
             _prevDestination = destination;
 
-            Debug.Log(QuestTriggers[_currentPath]);
             _currentPath++;
         }
 
@@ -99,6 +102,18 @@ namespace TAMKVR
         public void NextArea()
         {
             Player.position = NextAreaSpawn.position;
+            SetDestination();
+        }
+
+        public void Cleared()
+        {
+            foreach(FireExtinguisher ex in Extinguishers)
+            {
+                ex.GetComponent<Highlighable>().SetHighlightActive(false);
+            }
+
+            _currentPath = 0;
+            Player.position = SpawnPoints[0].position;
             SetDestination();
         }
     }
