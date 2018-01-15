@@ -10,8 +10,11 @@ namespace TAMKVR
         public Transform Player;
         public Navigation Navigation;
         public List<Transform> SpawnPoints = new List<Transform>();
+        public Transform NextAreaSpawn;
         public List<FireExtinguisher> Extinguishers = new List<FireExtinguisher>();
         public List<Door> ExitDoors = new List<Door>();
+        public List<QuestTriggerArea> QuestTriggers = new List<QuestTriggerArea>();
+        public bool _canContinue = true;
         //public List<PathMover> Paths = new List<PathMover>();
 
         private int _currentPath = 0;
@@ -25,11 +28,11 @@ namespace TAMKVR
         // DEBUG
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.N))
+            if (Input.GetKeyDown(KeyCode.N))
             {
                 SetDestination();
-                _currentPath++;
-                if(_currentPath >= ExitDoors.Count)
+                //_currentPath++;
+                if (_currentPath >= ExitDoors.Count)
                 {
                     _currentPath = 0;
                 }
@@ -49,7 +52,7 @@ namespace TAMKVR
                 return;
             }
 
-            _currentPath++;
+            //_currentPath++;
         }
 
         private void SpawnPlayer()
@@ -58,8 +61,10 @@ namespace TAMKVR
             SetDestination();
         }
 
-        private void SetDestination()
+        public void SetDestination()
         {
+            Debug.Log("SET DESTINATION");
+
             if (_prevDestination != null)
             {
                 _prevDestination.SetHighlightActive(false);
@@ -72,10 +77,29 @@ namespace TAMKVR
             }
 
             Door destination = ExitDoors[_currentPath];
+            QuestTriggers[_currentPath].Activate();
             Navigation.SetDestination(destination.transform.position);
             destination.SetHighlightActive(true);
 
             _prevDestination = destination;
+
+            Debug.Log(QuestTriggers[_currentPath]);
+            _currentPath++;
+        }
+
+        public void HideNavigation(bool hide)
+        {
+            this.Navigation.gameObject.SetActive(hide);
+            if (_prevDestination != null)
+            {
+                _prevDestination.SetHighlightActive(hide);
+            }
+        }
+
+        public void NextArea()
+        {
+            Player.position = NextAreaSpawn.position;
+            SetDestination();
         }
     }
 }
