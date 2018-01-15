@@ -26,6 +26,7 @@ namespace TAMKVR {
             //    _particles.SetActive(false);
             //}
             controller.ReleaseObject();
+            controller.OtherController.ReleaseObject();
             //_particles.SetActive(false);
             _isFiring = false;
         }
@@ -72,7 +73,7 @@ namespace TAMKVR {
                     _currentRange = _rangeOfPowder;
                 }
 
-                GameObject target = RaycasterTool.CheckCollision(_fireExtinguisherHose.transform.position, _fireExtinguisherHose.transform.forward, _currentRange, _layerMask);
+                GameObject target = RaycasterTool.CheckCollision(_fireExtinguisherHose.transform.position, _fireExtinguisherHose.transform.forward, 1000, _layerMask);
                 if (target)
                 {
                     var fire = target.GetComponent<Fire>();

@@ -5,6 +5,7 @@ using UnityEngine;
 public class QuestTriggerArea : MonoBehaviour, QuestObject {
 
     public Fire ChainQuestObject;
+    public bool First = false;
     public bool TravelToNextArea = false;
 
     private TAMKVR.ExitPathManager _exitPathManager;
@@ -12,7 +13,9 @@ public class QuestTriggerArea : MonoBehaviour, QuestObject {
     void Start()
     {
         _exitPathManager = FindObjectOfType<TAMKVR.ExitPathManager>();
-        this.gameObject.SetActive(false);
+
+        if(!First)
+            this.gameObject.SetActive(false);
     }
 
     public void Activate()

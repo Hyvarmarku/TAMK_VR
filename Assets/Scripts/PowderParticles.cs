@@ -5,7 +5,7 @@ using UnityEngine;
 public class PowderParticles : MonoBehaviour {
     private ParticleSystem _particles;
 
-    private void Start()
+    private void start()
     {
         _particles = GetComponent<ParticleSystem>();
     }
@@ -21,12 +21,18 @@ public class PowderParticles : MonoBehaviour {
     public void StartParticles()
     {
         gameObject.SetActive(true);
+        if(!_particles)
+        {
+            _particles = GetComponent<ParticleSystem>();
+        }
+
         _particles.Play();
         _particles.loop = true;
     }
 
     public void StopParticles()
     {
-        _particles.loop = false;
+        if(_particles)
+         _particles.loop = false;
     }
 }

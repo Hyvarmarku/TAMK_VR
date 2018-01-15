@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TAMKVR
 {
@@ -30,11 +31,12 @@ namespace TAMKVR
         {
             if (Input.GetKeyDown(KeyCode.N))
             {
-                SetDestination();
-                if (_currentPath >= ExitDoors.Count)
-                {
-                    _currentPath = 0;
-                }
+                //SetDestination();
+                //if (_currentPath >= ExitDoors.Count)
+                //{
+                //    _currentPath = 0;
+                //}
+                Cleared();
             }
         }
 
@@ -69,7 +71,6 @@ namespace TAMKVR
 
             if(_currentPath >= ExitDoors.Count)
             {
-                Debug.Log("CLEARED");
                 Cleared();
                 return;
             }
@@ -107,14 +108,18 @@ namespace TAMKVR
 
         public void Cleared()
         {
-            foreach(FireExtinguisher ex in Extinguishers)
-            {
-                ex.GetComponent<Highlighable>().SetHighlightActive(false);
-            }
+            //foreach(FireExtinguisher ex in Extinguishers)
+            //{
+            //    ex.GetComponent<Highlighable>().SetHighlightActive(false);
+            //    ex.ResetPosition();
+            //    ex.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            //    ex.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            //}
 
-            _currentPath = 0;
-            Player.position = SpawnPoints[0].position;
-            SetDestination();
+            //_currentPath = 0;
+            //Player.position = SpawnPoints[0].position;
+            //SetDestination();
+            SceneManager.LoadScene(0);
         }
     }
 }

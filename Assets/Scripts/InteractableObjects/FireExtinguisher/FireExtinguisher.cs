@@ -6,6 +6,13 @@ namespace TAMKVR
 {
     public class FireExtinguisher : Interactable
     {
+        private Vector3 _startingPosition;
+
+        void Start()
+        {
+            _startingPosition = transform.position;
+        }
+
         protected override void EndPadAction(ViveController controller)
         {
 
@@ -24,6 +31,11 @@ namespace TAMKVR
         protected override void EndTriggerAction(ViveController controller)
         {
             //controller.ReleaseObject();
+        }
+
+        public void ResetPosition()
+        {
+            transform.position = _startingPosition;
         }
 
     }

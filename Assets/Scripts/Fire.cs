@@ -33,7 +33,7 @@ public class Fire : MonoBehaviour, QuestObject {
     {
 	    if(Shrink)
         {
-            _scale -= (0.1f * Time.deltaTime);
+            _scale -= (0.2f * Time.deltaTime);
             if(_scale <= 0.2f)
             {
                 Cleared();

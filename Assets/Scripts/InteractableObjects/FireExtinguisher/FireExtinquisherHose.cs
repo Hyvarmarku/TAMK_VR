@@ -40,16 +40,19 @@ namespace TAMKVR
 
             if (_controllerHolding != null)
             {
-                var rotation = transform.localEulerAngles;
-                var originalRotation = rotation;
+                if (_controllerHolding.OtherController.ObjectInHand)
+                {
+                    var rotation = transform.localEulerAngles;
+                    var originalRotation = rotation;
 
-                rotation.y += (_controllerHolding.transform.position.y - _positionOnPrevFrame.y) * 1000f;
-                transform.localEulerAngles = rotation;
+                    rotation.y += (_controllerHolding.transform.position.y - _positionOnPrevFrame.y) * 1000f;
+                    transform.localEulerAngles = rotation;
 
-                if (transform.localEulerAngles.y > 90)
-                    transform.localEulerAngles = originalRotation;
+                    if (transform.localEulerAngles.y > 90)
+                        transform.localEulerAngles = originalRotation;
 
-                _positionOnPrevFrame = _controllerHolding.transform.position;
+                    _positionOnPrevFrame = _controllerHolding.transform.position;
+                }
             }
         }
     }
